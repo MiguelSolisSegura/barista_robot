@@ -258,6 +258,28 @@
         <mu2>0.0</mu2>
         <material>Gazebo/Black</material>
     </gazebo>
+    <!-- Laser Sensor -->
+    <link name="laser_sensor">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://barista_robot_description/meshes/hokuyo.dae" scale="1 1 1"/>
+            </geometry>
+        </visual>
+        <inertial>
+            <mass value="0.160"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <inertia ixx="0.000099" ixy="0" ixz="0" iyy="0.000099" iyz="0" izz="0.000066"/>
+        </inertial>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <box size="0.050 0.050 0.070"/>
+            </geometry>
+        </collision>
+    </link>
+    <!-- Laser Frame-->
+    <link name="laser_frame"/>
     <!-- Reference - Chassis -->
     <joint name="reference_to_chassis" type="fixed">
         <parent link="base_link"/>
@@ -332,6 +354,18 @@
     <gazebo reference="chassis_to_back_caster">
         <preserveFixedJoint>true</preserveFixedJoint>
     </gazebo>
+    <!-- Chassis - Laser Sensor -->
+    <joint name="chassis_to_laser_sensor" type="fixed">
+        <parent link="chassis"/>
+        <child link="laser_sensor"/>
+        <origin xyz="0.130 0 0.0775" rpy="0 0 0"/>
+    </joint>
+    <!-- Laser Sensor - Laser Frame -->
+    <joint name="laser_sensor_to_laser_frame" type="fixed">
+        <parent link="laser_sensor"/>
+        <child link="laser_frame"/>
+        <origin xyz="0 0 0.060" rpy="0 0 0"/>
+    </joint>
     <!-- Joint State Plugin -->
     <gazebo>
         <plugin name="barista_bot_joint_state" filename="libgazebo_ros_joint_state_publisher.so">
@@ -361,5 +395,34 @@
             <odometry_frame>odom</odometry_frame>
             <robot_base_frame>base_link</robot_base_frame>
         </plugin>
+    </gazebo>
+    <!-- Laser Sensor Plugin -->
+    <gazebo reference="laser_frame">
+        <sensor name="sensor_ray" type="ray">
+            <pose>0 0 0 0 0 0</pose>
+            <ray>
+                <scan>
+                    <horizontal>
+                    <samples>200</samples>
+                    <resolution>1.0</resolution>
+                    <min_angle>-3.14</min_angle>
+                    <max_angle>3.14</max_angle>
+                    </horizontal>
+                </scan>
+                <range>
+                    <min>0.025</min>
+                    <max>5.0</max>
+                </range>
+            </ray>
+            <always_on>true</always_on>
+            <visualize>true</visualize>
+            <update_rate>100.0</update_rate>
+            <plugin name="laser" filename="libgazebo_ros_ray_sensor.so">
+                <ros>
+                    <remapping>~/out:=scan</remapping>
+                </ros>
+                <output_type>sensor_msgs/LaserScan</output_type>
+            </plugin>
+        </sensor>
     </gazebo>
 </robot>

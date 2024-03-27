@@ -72,7 +72,6 @@ def generate_launch_description():
     # RVIZ Configuration
     rviz_config_dir = os.path.join(get_package_share_directory(package_description), 'rviz', 'config.rviz')
 
-
     rviz_node = Node(
             package='rviz2',
             executable='rviz2',
@@ -81,9 +80,9 @@ def generate_launch_description():
             parameters=[{'use_sim_time': True}],
             arguments=['-d', rviz_config_dir])
 
+    # Spawn ROBOT Set Gazebo
     entity_name = robot_base_name+"-"+str(int(random.random()*100000))
 
-    # Spawn ROBOT Set Gazebo
     spawn_robot = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
