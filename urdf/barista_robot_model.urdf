@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<robot name="example_robot">
+    <!-- Materials -->
+    <material name="white">
+        <color rgba="1 1 1 1"/>
+    </material>
+    <material name="black">
+        <color rgba="0 0 0 1"/>
+    </material>
+    <!-- Reference Frame-->
+    <link name="base_link"/>
+    <!-- Chassis -->
+    <link name="chassis">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://barista_robot_description/meshes/chassis.dae" scale="1 1 1"/>
+            </geometry>
+        </visual>
+    </link>
+    <!-- Rod A -->
+    <link name="rod_a">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.01" length="0.22"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+    </link>
+    <!-- Rod B -->
+    <link name="rod_b">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.01" length="0.22"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+    </link>
+    <!-- Rod C -->
+    <link name="rod_c">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.01" length="0.22"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+    </link>
+    <!-- Rod D -->
+    <link name="rod_d">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.01" length="0.22"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+    </link>
+    <!-- Cup Holder -->
+    <link name="cup_holder">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="package://barista_robot_description/meshes/cup_holder.dae" scale="1 1 1"/>
+            </geometry>
+        </visual>
+    </link>
+    <!-- Left Wheel -->
+    <link name="left_wheel">
+        <visual>
+            <origin rpy="1.570796 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.020" length="0.040"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+    <!-- Right Wheel -->
+    <link name="right_wheel">
+        <visual>
+            <origin rpy="1.570796 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.020" length="0.040"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+    <!-- Front Caster -->
+    <link name="front_caster">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.020"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+    <!-- Back Caster -->
+    <link name="back_caster">
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 0" />
+            <geometry>
+                <sphere radius="0.020"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+    <!-- Reference - Chassis -->
+    <joint name="reference_to_chassis" type="fixed">
+        <parent link="base_link"/>
+        <child link="chassis"/>
+        <origin xyz="0 0 0.0975" rpy="0 0 0"/>
+    </joint>
+    <!-- Chassis - Rod A -->
+    <joint name="chassis_to_rod_a" type="fixed">
+        <parent link="chassis"/>
+        <child link="rod_a"/>
+        <origin xyz="0.040 0.125 0.1875" rpy="0 0 0"/>
+    </joint>
+    <!-- Chassis - Rod B -->
+    <joint name="chassis_to_rod_b" type="fixed">
+        <parent link="chassis"/>
+        <child link="rod_b"/>
+        <origin xyz="-0.040 0.125 0.1875" rpy="0 0 0"/>
+    </joint>
+    <!-- Chassis - Rod C -->
+    <joint name="chassis_to_rod_c" type="fixed">
+        <parent link="chassis"/>
+        <child link="rod_c"/>
+        <origin xyz="0.040 -0.125 0.1875" rpy="0 0 0"/>
+    </joint>
+    <!-- Chassis - Rod D -->
+    <joint name="chassis_to_rod_d" type="fixed">
+        <parent link="chassis"/>
+        <child link="rod_d"/>
+        <origin xyz="-0.040 -0.125 0.1875" rpy="0 0 0"/>
+    </joint>
+    <!-- Chassis - Cup Holder -->
+    <joint name="chassis_to_cup_holder" type="fixed">
+        <parent link="chassis"/>
+        <child link="cup_holder"/>
+        <origin xyz="0 0 0.3425" rpy="0 0 0"/>
+    </joint>
+    <!-- Chassis - Left Wheel -->
+    <joint name="chassis_to_left_wheel" type="continuous">
+        <parent link="chassis"/>
+        <child link="left_wheel"/>
+        <origin xyz="0 -0.145 -0.0775" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <!-- Chassis - Right Wheel -->
+    <joint name="chassis_to_right_wheel" type="continuous">
+        <parent link="chassis"/>
+        <child link="right_wheel"/>
+        <origin xyz="0 0.145 -0.0775" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <!-- Chassis - Front Caster -->
+    <joint name="chassis_to_front_caster" type="continuous">
+        <parent link="chassis"/>
+        <child link="front_caster"/>
+        <origin xyz="0.145 0 -0.0775" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    <!-- Chassis - Back Caster -->
+    <joint name="chassis_to_back_caster" type="continuous">
+        <parent link="chassis"/>
+        <child link="back_caster"/>
+        <origin xyz="-0.145 0 -0.0775" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+    
+</robot>
