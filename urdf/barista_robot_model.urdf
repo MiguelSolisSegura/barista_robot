@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
-<robot name="example_robot">
-    <!-- Materials -->
+<robot name="barista_robot">
+    <!-- White Material -->
     <material name="white">
         <color rgba="1 1 1 1"/>
     </material>
+    <!-- Black Material -->
     <material name="black">
         <color rgba="0 0 0 1"/>
     </material>
@@ -17,6 +18,17 @@
                 <mesh filename="package://barista_robot_description/meshes/chassis.dae" scale="1 1 1"/>
             </geometry>
         </visual>
+        <inertial>
+            <mass value="12"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <inertia ixx="0.119077" ixy="0" ixz="0" iyy="0.119077" iyz="0" izz="0.190104"/>
+        </inertial>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.178" length="0.155"/>
+            </geometry>
+        </collision>
     </link>
     <!-- Rod A -->
     <link name="rod_a">
@@ -27,7 +39,21 @@
             </geometry>
             <material name="white"/>
         </visual>
+        <inertial>
+            <mass value="0.25"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <inertia ixx="0.001015" ixy="0" ixz="0" iyy="0.001015" iyz="0" izz="0.000013"/>
+        </inertial>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+               <cylinder radius="0.01" length="0.22"/>
+            </geometry>
+        </collision>
     </link>
+    <gazebo reference="rod_a">
+        <material>Gazebo/White</material>
+    </gazebo>
     <!-- Rod B -->
     <link name="rod_b">
         <visual>
@@ -37,7 +63,21 @@
             </geometry>
             <material name="white"/>
         </visual>
+        <inertial>
+            <mass value="0.25"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <inertia ixx="0.001015" ixy="0" ixz="0" iyy="0.001015" iyz="0" izz="0.000013"/>
+        </inertial>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.01" length="0.22"/>
+            </geometry>
+        </collision>
     </link>
+    <gazebo reference="rod_b">
+        <material>Gazebo/White</material>
+    </gazebo>
     <!-- Rod C -->
     <link name="rod_c">
         <visual>
@@ -47,7 +87,21 @@
             </geometry>
             <material name="white"/>
         </visual>
+        <inertial>
+            <mass value="0.25"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <inertia ixx="0.001015" ixy="0" ixz="0" iyy="0.001015" iyz="0" izz="0.000013"/>
+        </inertial>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.01" length="0.22"/>
+            </geometry>
+        </collision>
     </link>
+    <gazebo reference="rod_c">
+        <material>Gazebo/White</material>
+    </gazebo>
     <!-- Rod D -->
     <link name="rod_d">
         <visual>
@@ -57,7 +111,21 @@
             </geometry>
             <material name="white"/>
         </visual>
+        <inertial>
+            <mass value="0.25"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <inertia ixx="0.001015" ixy="0" ixz="0" iyy="0.001015" iyz="0" izz="0.000013"/>
+        </inertial>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.01" length="0.22"/>
+            </geometry>
+        </collision>
     </link>
+    <gazebo reference="rod_d">
+        <material>Gazebo/White</material>
+    </gazebo>
     <!-- Cup Holder -->
     <link name="cup_holder">
         <visual>
@@ -66,6 +134,17 @@
                 <mesh filename="package://barista_robot_description/meshes/cup_holder.dae" scale="1 1 1"/>
             </geometry>
         </visual>
+        <inertial>
+            <mass value="6"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <inertia ixx="0.042450" ixy="0" ixz="0" iyy="0.042450" iyz="0" izz="0.076800"/>
+        </inertial>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.160" length="0.090"/>
+            </geometry>
+        </collision>
     </link>
     <!-- Left Wheel -->
     <link name="left_wheel">
@@ -76,7 +155,25 @@
             </geometry>
             <material name="black"/>
         </visual>
+        <inertial>
+            <mass value="0.25"/>
+            <origin rpy="1.570796 0 0" xyz="0 0 0"/>
+            <inertia ixx="0.000058" ixy="0" ixz="0" iyy="0.000058" iyz="0" izz="0.000050"/>
+        </inertial>
+        <collision>
+            <origin rpy="1.570796 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.020" length="0.040"/>
+            </geometry>
+        </collision>
     </link>
+    <gazebo reference="left_wheel">
+        <kp>1e6</kp>
+        <kd>10</kd>
+        <mu1>10.0</mu1>
+        <mu2>10.0</mu2>
+        <material>Gazebo/Black</material>
+    </gazebo>
     <!-- Right Wheel -->
     <link name="right_wheel">
         <visual>
@@ -86,7 +183,25 @@
             </geometry>
             <material name="black"/>
         </visual>
+        <inertial>
+            <mass value="0.25"/>
+            <origin rpy="1.570796 0 0" xyz="0 0 0"/>
+            <inertia ixx="0.000058" ixy="0" ixz="0" iyy="0.000058" iyz="0" izz="0.000050"/>
+        </inertial>
+        <collision>
+            <origin rpy="1.570796 0 0" xyz="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.020" length="0.040"/>
+            </geometry>
+        </collision>
     </link>
+    <gazebo reference="right_wheel">
+        <kp>1e6</kp>
+        <kd>10</kd>
+        <mu1>10.0</mu1>
+        <mu2>10.0</mu2>
+        <material>Gazebo/Black</material>
+    </gazebo>
     <!-- Front Caster -->
     <link name="front_caster">
         <visual>
@@ -96,7 +211,25 @@
             </geometry>
             <material name="black"/>
         </visual>
+        <inertial>
+            <mass value="0.25"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <inertia ixx="0.000040" ixy="0" ixz="0" iyy="0.000040" iyz="0" izz="0.000040"/>
+        </inertial>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.020"/>
+            </geometry>
+        </collision>
     </link>
+    <gazebo reference="front_caster">
+        <kp>1e6</kp>
+        <kd>10</kd>
+        <mu1>0.0</mu1>
+        <mu2>0.0</mu2>
+        <material>Gazebo/Black</material>
+    </gazebo>
     <!-- Back Caster -->
     <link name="back_caster">
         <visual>
@@ -106,7 +239,25 @@
             </geometry>
             <material name="black"/>
         </visual>
+        <inertial>
+            <mass value="0.25"/>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <inertia ixx="0.000040" ixy="0" ixz="0" iyy="0.000040" iyz="0" izz="0.000040"/>
+        </inertial>
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <sphere radius="0.020"/>
+            </geometry>
+        </collision>
     </link>
+    <gazebo reference="back_caster">
+        <kp>1e6</kp>
+        <kd>10</kd>
+        <mu1>0.0</mu1>
+        <mu2>0.0</mu2>
+        <material>Gazebo/Black</material>
+    </gazebo>
     <!-- Reference - Chassis -->
     <joint name="reference_to_chassis" type="fixed">
         <parent link="base_link"/>
@@ -149,6 +300,8 @@
         <child link="left_wheel"/>
         <origin xyz="0 -0.145 -0.0775" rpy="0 0 0"/>
         <axis xyz="0 1 0"/>
+        <limit effort="10000" velocity="1000" />
+        <joint_properties damping="1.0" friction="1.0"/>
     </joint>
     <!-- Chassis - Right Wheel -->
     <joint name="chassis_to_right_wheel" type="continuous">
@@ -156,20 +309,38 @@
         <child link="right_wheel"/>
         <origin xyz="0 0.145 -0.0775" rpy="0 0 0"/>
         <axis xyz="0 1 0"/>
+        <limit effort="10000" velocity="1000" />
+        <joint_properties damping="1.0" friction="1.0"/>
     </joint>
     <!-- Chassis - Front Caster -->
-    <joint name="chassis_to_front_caster" type="continuous">
+    <joint name="chassis_to_front_caster" type="fixed">
         <parent link="chassis"/>
         <child link="front_caster"/>
         <origin xyz="0.145 0 -0.0775" rpy="0 0 0"/>
-        <axis xyz="0 1 0"/>
+        <joint_properties damping="1.0" friction="1.0"/>
     </joint>
+    <gazebo reference="chassis_to_front_caster">
+        <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
     <!-- Chassis - Back Caster -->
-    <joint name="chassis_to_back_caster" type="continuous">
+    <joint name="chassis_to_back_caster" type="fixed">
         <parent link="chassis"/>
         <child link="back_caster"/>
         <origin xyz="-0.145 0 -0.0775" rpy="0 0 0"/>
-        <axis xyz="0 1 0"/>
+        <joint_properties damping="1.0" friction="1.0"/>
     </joint>
-    
+    <gazebo reference="chassis_to_back_caster">
+        <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
+    <!-- Joint State Plugin -->
+    <gazebo>
+        <plugin name="barista_bot_joint_state" filename="libgazebo_ros_joint_state_publisher.so">
+        <ros>
+            <remapping>~/out:=joint_states</remapping>
+        </ros>
+        <update_rate>30</update_rate>
+        <joint_name>chassis_to_left_wheel</joint_name>
+        <joint_name>chassis_to_right_wheel</joint_name>
+        </plugin>
+    </gazebo>
 </robot>
