@@ -23,13 +23,21 @@
                 </collision>
             </link>
             <!-- Laser Frame-->
-            <link name="laser_frame"/>
+            <link name="laser_frame">
+                <inertial>
+                    <mass value="0.0001"/>
+                    <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+                </inertial>
+            </link>
             <!-- Laser Sensor - Laser Frame -->
             <joint name="laser_sensor_to_laser_frame" type="fixed">
                 <parent link="laser_sensor"/>
                 <child link="laser_frame"/>
                 <origin xyz="0 0 0.060" rpy="0 0 0"/>
             </joint>
+            <gazebo reference="laser_sensor_to_laser_frame">
+                <preserveFixedJoint>true</preserveFixedJoint>
+            </gazebo>
             <!-- Laser Sensor Plugin -->
             <gazebo reference="laser_frame">
                 <sensor name="sensor_ray" type="ray">
