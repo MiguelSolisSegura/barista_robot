@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:macro name="caster" params="link_name radius mass">
+        <link name="${link_name}">
+            <visual>
+                <origin rpy="0 0 0" xyz="0 0 0" />
+                <geometry>
+                    <sphere radius="${radius}"/>
+                </geometry>
+                <material name="black"/>
+            </visual>
+            <inertial>
+                <mass value="${mass}"/>
+                <origin rpy="0 0 0" xyz="0 0 0" />
+                <inertia 
+                    ixx="${2/5.0 * mass * radius * radius}" 
+                    ixy="0" 
+                    ixz="0" 
+                    iyy="${2/5.0 * mass * radius * radius}" 
+                    iyz="0" 
+                    izz="${2/5.0 * mass * radius * radius}"/>
+            </inertial>
+            <collision>
+                <origin rpy="0 0 0" xyz="0 0 0" />
+                <geometry>
+                    <sphere radius="${radius}"/>
+                </geometry>
+            </collision>
+        </link>
+        <gazebo reference="${link_name}">
+            <kp>1e6</kp>
+            <kd>10</kd>
+            <mu1>0.0</mu1>
+            <mu2>0.0</mu2>
+            <material>Gazebo/Black</material>
+        </gazebo>
+    </xacro:macro>  
+</robot>
