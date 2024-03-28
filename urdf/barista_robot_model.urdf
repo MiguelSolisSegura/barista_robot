@@ -9,7 +9,12 @@
         <color rgba="0 0 0 1"/>
     </material>
     <!-- Reference Frame-->
-    <link name="base_link"/>
+    <link name="base_link">
+        <inertial>
+            <mass value="0.0001"/>
+            <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+        </inertial>
+    </link>
     <!-- Chassis -->
     <link name="chassis">
         <visual>
@@ -279,43 +284,66 @@
         </collision>
     </link>
     <!-- Laser Frame-->
-    <link name="laser_frame"/>
+    <link name="laser_frame">
+        <inertial>
+            <mass value="0.0001"/>
+            <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+        </inertial>
+    </link>
     <!-- Reference - Chassis -->
     <joint name="reference_to_chassis" type="fixed">
         <parent link="base_link"/>
         <child link="chassis"/>
         <origin xyz="0 0 0.0975" rpy="0 0 0"/>
     </joint>
+    <gazebo reference="reference_to_chassis">
+        <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
     <!-- Chassis - Rod A -->
     <joint name="chassis_to_rod_a" type="fixed">
         <parent link="chassis"/>
         <child link="rod_a"/>
         <origin xyz="0.040 0.125 0.1875" rpy="0 0 0"/>
     </joint>
+    <gazebo reference="chassis_to_rod_a">
+        <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
     <!-- Chassis - Rod B -->
     <joint name="chassis_to_rod_b" type="fixed">
         <parent link="chassis"/>
         <child link="rod_b"/>
         <origin xyz="-0.040 0.125 0.1875" rpy="0 0 0"/>
     </joint>
+    <gazebo reference="chassis_to_rod_b">
+        <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
     <!-- Chassis - Rod C -->
     <joint name="chassis_to_rod_c" type="fixed">
         <parent link="chassis"/>
         <child link="rod_c"/>
         <origin xyz="0.040 -0.125 0.1875" rpy="0 0 0"/>
     </joint>
+    <gazebo reference="chassis_to_rod_c">
+        <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
     <!-- Chassis - Rod D -->
     <joint name="chassis_to_rod_d" type="fixed">
         <parent link="chassis"/>
         <child link="rod_d"/>
         <origin xyz="-0.040 -0.125 0.1875" rpy="0 0 0"/>
     </joint>
+    <gazebo reference="chassis_to_rod_d">
+        <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
     <!-- Chassis - Cup Holder -->
     <joint name="chassis_to_cup_holder" type="fixed">
         <parent link="chassis"/>
         <child link="cup_holder"/>
         <origin xyz="0 0 0.3425" rpy="0 0 0"/>
     </joint>
+    <gazebo reference="chassis_to_cup_holder">
+        <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
     <!-- Chassis - Left Wheel -->
     <joint name="chassis_to_left_wheel" type="continuous">
         <parent link="chassis"/>
@@ -360,12 +388,18 @@
         <child link="laser_sensor"/>
         <origin xyz="0.130 0 0.0775" rpy="0 0 0"/>
     </joint>
+    <gazebo reference="chassis_to_laser_sensor">
+        <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
     <!-- Laser Sensor - Laser Frame -->
     <joint name="laser_sensor_to_laser_frame" type="fixed">
         <parent link="laser_sensor"/>
         <child link="laser_frame"/>
         <origin xyz="0 0 0.060" rpy="0 0 0"/>
     </joint>
+    <gazebo reference="laser_sensor_to_laser_frame">
+        <preserveFixedJoint>true</preserveFixedJoint>
+    </gazebo>
     <!-- Joint State Plugin -->
     <gazebo>
         <plugin name="barista_bot_joint_state" filename="libgazebo_ros_joint_state_publisher.so">
@@ -410,7 +444,7 @@
                     </horizontal>
                 </scan>
                 <range>
-                    <min>0.025</min>
+                    <min>0.08</min>
                     <max>5.0</max>
                 </range>
             </ray>
