@@ -1,2 +1,4 @@
 # Ignore all images
 *.png
+!chassis.png
+!cup_holder.png
