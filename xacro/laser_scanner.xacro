@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-    <xacro:macro name="laser_scanner" params="include_laser:=true">
+    <xacro:macro name="laser_scanner" params="robot_name include_laser:=true">
         <xacro:if value="${include_laser}">
             <!-- Laser Sensor -->
             <link name="laser_sensor">
@@ -57,10 +57,11 @@
                         </range>
                     </ray>
                     <always_on>true</always_on>
-                    <visualize>true</visualize>
+                    <visualize>false</visualize>
                     <update_rate>100.0</update_rate>
-                    <plugin name="laser" filename="libgazebo_ros_ray_sensor.so">
+                    <plugin name="${robot_name}_laser" filename="libgazebo_ros_ray_sensor.so">
                         <ros>
+                            <namespace>/${robot_name}</namespace>
                             <remapping>~/out:=scan</remapping>
                         </ros>
                         <output_type>sensor_msgs/LaserScan</output_type>
