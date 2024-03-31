@@ -9,12 +9,12 @@ from ament_index_python.packages import get_package_prefix
 
 def generate_launch_description():
     
-    pkg_box_bot_gazebo = get_package_share_directory('barista_robot_description')
+    pkg_gazebo = get_package_share_directory('barista_robot_description')
     description_package_name = "barista_robot_description"
     install_dir = get_package_prefix(description_package_name)
     
     # This is to find the models inside the models folder in my_box_bot_gazebo package
-    gazebo_models_path = os.path.join(pkg_box_bot_gazebo, 'meshes')
+    gazebo_models_path = os.path.join(pkg_gazebo, 'meshes')
     if 'GAZEBO_MODEL_PATH' in os.environ:
         os.environ['GAZEBO_MODEL_PATH'] = os.environ['GAZEBO_MODEL_PATH'] + \
             ':' + install_dir + '/share' + ':' + gazebo_models_path
@@ -86,16 +86,42 @@ def generate_launch_description():
     spawn_robot1 = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
-        arguments=['-entity', 'robot1', '-x', '0.0', '-y', '0.0', '-z', '0.0',
+        arguments=['-entity', 'rick', '-x', '0.0', '-y', '0.0', '-z', '0.0',
                    '-topic', robot_name_1+'/robot_description']
     )
 
     spawn_robot2 = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
-        arguments=['-entity', 'robot2', '-x', '1.0', '-y', '1.0', '-z', '0.0',
+        arguments=['-entity', 'morty', '-x', '1.0', '-y', '0.0', '-z', '0.0',
                    '-topic', robot_name_2+'/robot_description']
     )
+
+    # TF2 world - robot1/odom
+    tf2_robot1 = Node(
+             package='tf2_ros',
+             executable='static_transform_publisher',
+             arguments = ['--frame-id', 'world', '--child-frame-id', robot_name_1 + '/odom']
+        )
+
+    # TF2 world - robot2/odom
+    tf2_robot2 = Node(
+             package='tf2_ros',
+             executable='static_transform_publisher',
+             arguments = ['--frame-id', 'world', '--child-frame-id', robot_name_2 + '/odom']
+        )
+
+
+    # RVIZ Configuration
+    rviz_config_dir = os.path.join(pkg_gazebo, 'rviz', 'config_two_robots.rviz')
+
+    rviz_node = Node(
+            package='rviz2',
+            executable='rviz2',
+            output='screen',
+            name='rviz_node',
+            parameters=[{'use_sim_time': True}],
+            arguments=['-d', rviz_config_dir])
 
     return LaunchDescription([
         world_file_arg,
@@ -103,5 +129,8 @@ def generate_launch_description():
         rsp_robot1,
         rsp_robot2,
         spawn_robot1,
-        spawn_robot2
+        spawn_robot2,
+        tf2_robot1,
+        tf2_robot2,
+        rviz_node
     ])

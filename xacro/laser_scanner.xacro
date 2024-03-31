@@ -40,7 +40,7 @@
             </gazebo>
             <!-- Laser Sensor Plugin -->
             <gazebo reference="laser_frame">
-                <sensor name="sensor_ray" type="ray">
+                <sensor name="${robot_name}_sensor_ray" type="ray">
                     <pose>0 0 0 0 0 0</pose>
                     <ray>
                         <scan>
@@ -58,12 +58,13 @@
                     </ray>
                     <always_on>true</always_on>
                     <visualize>false</visualize>
-                    <update_rate>100.0</update_rate>
+                    <update_rate>10.0</update_rate>
                     <plugin name="${robot_name}_laser" filename="libgazebo_ros_ray_sensor.so">
                         <ros>
                             <namespace>/${robot_name}</namespace>
                             <remapping>~/out:=scan</remapping>
                         </ros>
+                        <frame_name>${robot_name}/laser_frame</frame_name>
                         <output_type>sensor_msgs/LaserScan</output_type>
                     </plugin>
                 </sensor>
