@@ -1,6 +1,7 @@
 # Barista Robot Description
 
 This repository hosts the URDF and XACRO descriptions along with launch files for the barista robots, Rick and Morty. Designed for ROS2, it allows for the visualization in RViz and spawning of the robots within a Gazebo simulation environment. This setup is foundational for simulating the "Catch Me If You Can" game scenario where one robot chases another using the ROS2 framework.
+
 A more comprehensive explanation of this project can be found [here](https://miguelsolissegura.com/project/barista-robots-p1).
 
 ## Getting Started
